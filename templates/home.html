@@ -1,0 +1,131 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<style>
+  .projects-container {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle fill="%23ccc" cx="50" cy="50" r="1"/></svg>')
+      repeat;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: "Times New Roman", serif;
+  }
+  .card {
+    background: linear-gradient(145deg, #f0f8ff, #e6e6fa);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
+    overflow: hidden;
+    position: relative;
+  }
+  .btn-success, .btn-info, .btn-warning{
+    text-align: right;
+    font-size: 12px;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  .card-title {
+    /* color: #483d8b; */
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 0.4rem;
+  }
+  .card-text {
+    color: #708090;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+  .btn-primary {
+    background: linear-gradient(90deg, #00bfff, #1e90ff);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    transition: transform 0.1s ease, background 0.1s ease;
+    display: block;
+    margin: 0 auto;
+  }
+  .btn-primary:hover {
+    transform: scale(1.02);
+    background: linear-gradient(90deg, #1e90ff, #00bfff);
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .projects-heading {
+    /* color: #483d8b; */
+    text-align: center;
+    /* font-size: 2.5rem; */
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<div class="projects-container">
+  <h2 class="projects-heading">PROJECTS</h2>
+  <!-- <div class="mb-3 text-center">
+    <a href="{{ url_for('metrics') }}" class="btn btn-primary">View Metrics</a>
+  </div> -->
+  <div class="row">
+    {% for project in projects %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          {% if project.actual_days is not none %}
+          <div class="d-flex justify-content-end">
+            <p class="btn btn-success">Project Completed</p>
+          </div>
+        {% elif project.assigned_to is not none %}
+          <div class="d-flex justify-content-end">
+            <p class="btn btn-info">Project Assigned</p>
+          </div>
+        {% elif project.window_close and project.window_close < project.current_time %}
+          <div class="d-flex justify-content-end">
+            <p class="btn btn-warning">Submission Closed</p>
+          </div>
+        {% endif %}
+          <h5 class="card-title">{{ project.name }}</h5>
+
+          <p class="card-text">
+            <i
+              class="bi bi-calendar"
+              style="color: #00bfff; margin-right: 5px"
+            ></i>
+            Latest Start Date: {{ project.latest_start_date }}
+          </p>
+          <p class="card-text">
+            <i
+              class="bi bi-person"
+              style="color: #00bfff; margin-right: 5px"
+            ></i>
+            Assigned to: {{ project.assigned_to or 'Not assigned yet' }}
+          </p>
+          <a
+            href="{{ url_for('project_status', project_name=project.name) }}"
+            class="btn btn-primary"
+            >View Details</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

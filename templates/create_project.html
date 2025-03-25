@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block title %}Create Projects{% endblock %} {%
+block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Project</title>
+  <style>
+    body{
+      font-family: "Times New Roman", serif;
+    }
+    h2{
+      margin-top: 4%;
+    }
+  </style>
+</head>
+<h2 class="mb-4">Create New Projects</h2>
+<form method="POST" action="{{ url_for('create_project') }}">
+  <div id="projects">
+    <div class="project-entry mb-4">
+      <h4>Project 1</h4>
+      <div class="mb-3">
+        <label for="project_name_1" class="form-label">Project Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="project_name_1"
+          name="project_name[]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="deadline_1" class="form-label">Deadline (days):</label>
+        <input
+          type="number"
+          class="form-control"
+          id="deadline_1"
+          name="deadline[]"
+          min="1"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="skill_1" class="form-label">Skill:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="skill_1"
+          name="skill[]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="experience_area_1" class="form-label"
+          >Experience Area:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="experience_area_1"
+          name="experience_area[]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="years_experience_1" class="form-label"
+          >Years of Experience:</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="years_experience_1"
+          name="years_experience[]"
+          min="0"
+          required
+        />
+      </div>
+    </div>
+  </div>
+  <div class="d-flex gap-2" style="padding-bottom: 20px">
+    <button type="button" class="btn btn-secondary" id="add-project">
+      Add Another Project
+    </button>
+    <button type="submit" class="btn btn-primary">Create Projects</button>
+  </div>
+</form>
+
+<script>
+  let projectCount = 1;
+  document.getElementById("add-project").addEventListener("click", function () {
+    projectCount++;
+    const projectDiv = document.createElement("div");
+    projectDiv.classList.add("project-entry", "mb-4");
+    projectDiv.innerHTML = `
+      <h3>Project ${projectCount}</h3>
+      <div class="mb-3">
+        <label for="project_name_${projectCount}" class="form-label">Project Name:</label>
+        <input type="text" class="form-control" id="project_name_${projectCount}" name="project_name[]" required>
+      </div>
+      <div class="mb-3">
+        <label for="deadline_${projectCount}" class="form-label">Deadline (days):</label>
+        <input type="number" class="form-control" id="deadline_${projectCount}" name="deadline[]" min="1" required>
+      </div>
+      <div class="mb-3">
+        <label for="skill_${projectCount}" class="form-label">Skill:</label>
+        <input type="text" class="form-control" id="skill_${projectCount}" name="skill[]" required>
+      </div>
+      <div class="mb-3">
+        <label for="experience_area_${projectCount}" class="form-label">Experience Area:</label>
+        <input type="text" class="form-control" id="experience_area_${projectCount}" name="experience_area[]" required>
+      </div>
+      <div class="mb-3">
+        <label for="years_experience_${projectCount}" class="form-label">Years of Experience:</label>
+        <input type="number" class="form-control" id="years_experience_${projectCount}" name="years_experience[]" min="0" required>
+      </div>
+    `;
+    document.getElementById("projects").appendChild(projectDiv);
+  });
+</script>
+{% endblock %}
