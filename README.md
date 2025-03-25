@@ -1,4 +1,4 @@
-## btech_Project
+## BTECH Project Group GD06
 ### V-Lance Recommender for Virtual Leader
 
 ### Description:
