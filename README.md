@@ -12,3 +12,10 @@
   -	Scores are calculated with each individual user and the top five scorers are considered and the project is         recommended to them.
   -	Next these 5 users are asked to provide the time in which they can complete the project. The project is            assigned to the user who guarantees to complete the project in the lowest amount of time.
   -	Moreover, multiple projects can be entered once and hence prioritisation is used to prioritise the projects.
+
+
+### Modules
+  - User Authentication Module: This module handles secure user login and authentication.
+  - MBTI Deduction Module: This module handles the MBTI deduction from the LinkedIn dataset. MBTI for each user profile was deduced.
+  - Personality & Skill Matching Module: In this module, cross encoders are used for semantic analysis. The semantic scores are calculated between the project requirements and the user profile data.
+  - Subtask Generation & Eisenhower Matrix Prioritization Module: After the project has been assigned, sub-tasks are generated and prioritised.
